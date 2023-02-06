@@ -1,0 +1,33 @@
+version: '3'
+services:
+  consul:
+    image: consul:latest
+    ports:
+      - "8500:8500"
+  airflow:
+    image: puckel/docker-airflow
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./dags:/usr/local/airflow/dags
+  
+  printer:
+    build:
+      context: ./service_2
+    ports:
+      - "50052:50052"
+    depends_on:
+      - consul
+    environment:
+      - CONSUL_HTTP_ADDR=consul:8500
+
+  adder:
+    build:
+      context: ./service_1
+    ports:
+      - "50051:50051"
+    depends_on:
+      - printer
+      - consul
+    environment:
+      - CONSUL_HTTP_ADDR=consul:8500

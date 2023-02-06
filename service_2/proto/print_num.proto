@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package pb;
+
+option go_package = "./pb";
+
+service Printer {
+    rpc Print(PrintRequest) returns (PrintResponse) {}
+}
+
+message PrintRequest {
+	int32 sum = 1;
+}
+
+message PrintResponse {
+    string message = 1;
+}

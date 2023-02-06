@@ -1,0 +1,42 @@
+syntax = "proto3";
+
+package pb;
+
+option go_package = "./pb";
+
+service Adder {
+	rpc Add (AddRequest) returns (AddResponse) {}
+    // rpc HealthCheck(HealthCheckRequest) returns (HealthCheckResponse) {}
+}
+
+message AddRequest {
+	int32 A = 1;
+	int32 B = 2;
+}
+
+message AddResponse {
+	int32 Sum = 1;
+}
+
+service Printer {
+	rpc Print (PrintRequest) returns (PrintResponse) {}
+}
+
+message PrintRequest {
+	string Message = 1;
+}
+
+message PrintResponse {
+}
+
+// message HealthCheckRequest {}
+
+// message HealthCheckResponse {
+//   enum Status {
+//     UNKNOWN = 0;
+//     HEALTHY = 1;
+//     UNHEALTHY = 2;
+//   }
+
+//   Status status = 1;
+// }
